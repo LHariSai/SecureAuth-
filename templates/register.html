@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Register — SecureAuth{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">🔐</div>
+            <h1>Create Account</h1>
+            <p>Join SecureAuth — your data stays safe</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('register') }}" novalidate>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-control"
+                    value="{{ username or '' }}"
+                    placeholder="Choose a username"
+                    autocomplete="username"
+                    maxlength="50"
+                    required
+                >
+                <small class="form-hint">3–50 characters</small>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ email or '' }}"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="At least 8 characters"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+                    <button type="button" class="toggle-password" data-target="password" aria-label="Toggle password visibility">👁</button>
+                </div>
+                <div class="password-strength" id="password-strength"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        class="form-control"
+                        placeholder="Repeat your password"
+                        autocomplete="new-password"
+                        required
+                    >
+                    <button type="button" class="toggle-password" data-target="confirm_password" aria-label="Toggle password visibility">👁</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="{{ url_for('login') }}">Sign in</a>
+        </div>
+
+        <div class="security-badge">
+            <span>🔒</span> Passwords are hashed with PBKDF2-SHA256 · 600,000 iterations
+        </div>
+    </div>
+</div>
+{% endblock %}

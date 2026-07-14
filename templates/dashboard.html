@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SecureAuth{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Welcome, <span class="highlight">{{ user['username'] }}</span> 👋</h1>
+        <p class="dashboard-subtitle">You are securely authenticated.</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="info-card">
+            <div class="info-card-icon">👤</div>
+            <div class="info-card-body">
+                <h3>Account Info</h3>
+                <div class="info-row">
+                    <span class="info-label">Username</span>
+                    <span class="info-value">{{ user['username'] }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">{{ user['email'] }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value mono">#{{ user['id'] }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Member Since</span>
+                    <span class="info-value">{{ user['created_at'][:10] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-icon">🔐</div>
+            <div class="info-card-body">
+                <h3>Security Features</h3>
+                <ul class="security-list">
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>Password Hashing</strong>
+                            <small>PBKDF2-SHA256 with 600,000 iterations</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>SQL Injection Prevention</strong>
+                            <small>Parameterized queries throughout</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>Session Management</strong>
+                            <small>Secure, HttpOnly, SameSite cookies</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>Access Control</strong>
+                            <small>Login-required decorator on protected routes</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>Input Validation</strong>
+                            <small>Server-side validation on all user inputs</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <div>
+                            <strong>Security Headers</strong>
+                            <small>X-Content-Type-Options, X-Frame-Options, Referrer-Policy</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-card info-card-wide">
+            <div class="info-card-icon">🛡</div>
+            <div class="info-card-body">
+                <h3>Session Info</h3>
+                <div class="info-row">
+                    <span class="info-label">Session Active</span>
+                    <span class="info-value badge badge-green">Active</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Cookie Flags</span>
+                    <span class="info-value mono">HttpOnly · SameSite=Lax</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Auth Method</span>
+                    <span class="info-value">Server-side session (signed cookie)</span>
+                </div>
+                <div class="logout-section">
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger">
+                        Sign Out Securely
+                    </a>
+                    <small>Clears all session data immediately</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
